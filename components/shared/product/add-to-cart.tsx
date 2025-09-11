@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { CartItem } from "@/types";
 import { addItemToCart } from "@/lib/actions/cart.actions";
 import { toast } from "sonner";
+import { Plus } from "lucide-react";
 
 const AddToCart = ({ item }: { item: CartItem }) => {
   const router = useRouter();
@@ -28,7 +29,7 @@ const AddToCart = ({ item }: { item: CartItem }) => {
 
   return (
     <Button className="w-full" type="button" onClick={handleAddToCart}>
-      {" "}
+      <Plus />
       Add To Cart
     </Button>
   );

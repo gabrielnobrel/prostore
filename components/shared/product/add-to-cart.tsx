@@ -13,13 +13,13 @@ const AddToCart = ({ item }: { item: CartItem }) => {
   const handleAddToCart = async () => {
     const res = await addItemToCart(item);
 
-    if (!res.success) {
-      toast.error(res.message);
+    if (!res?.success) {
+      toast.error(res?.message);
       return;
     }
 
     // Handle success add to cart
-    toast.success(`${item.name} added to cart`, {
+    toast.success(res.message, {
       action: {
         label: "Go To Cart",
         onClick: () => router.push("/cart"),

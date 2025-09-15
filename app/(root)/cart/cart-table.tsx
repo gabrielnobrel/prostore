@@ -130,7 +130,7 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
                 className="w-full"
                 disabled={isPending}
                 onClick={() =>
-                  startTransition(() => router.push("/shipping-adress"))
+                  startTransition(() => router.push("/shipping-address"))
                 }
               >
                 {isPending ? (

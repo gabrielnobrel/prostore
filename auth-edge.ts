@@ -56,12 +56,12 @@ export const config = {
         return false;
       }
       // Sua lógica de cookie pode ficar aqui, mas sem Prisma!
-      // if (!request.cookies.get("sessionCartId")) {
-      //   const sessionCartId = crypto.randomUUID();
-      //   const response = NextResponse.next();
-      //   response.cookies.set("sessionCartId", sessionCartId);
-      //   return response;
-      // }
+      if (!request.cookies.get("sessionCartId")) {
+        const sessionCartId = crypto.randomUUID();
+        const response = NextResponse.next();
+        response.cookies.set("sessionCartId", sessionCartId);
+        return response;
+      }
       return true;
     },
   },

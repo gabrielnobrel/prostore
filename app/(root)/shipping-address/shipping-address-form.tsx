@@ -30,7 +30,7 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
     defaultValues: address || shippingAddressDefaultValues,
   });
 
-  const [isPeding, setIsPending] = useTransition();
+  const [isPending, setIsPending] = useTransition();
 
   const onSubmit: SubmitHandler<z.infer<typeof shippingAddressSchema>> = async (
     values
@@ -181,8 +181,8 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
             </div>
 
             <div className="flex gap-2">
-              <Button type="submit" disabled={isPeding}>
-                {isPeding ? (
+              <Button type="submit" disabled={isPending}>
+                {isPending ? (
                   <Loader className="w-4 h-4 animate-spin" />
                 ) : (
                   <ArrowRight className="w-4 h-4" />

@@ -38,14 +38,30 @@ export const config = {
       }
       return token;
     },
-    authorized({ request }) {
-      // Sua lógica de cookie pode ficar aqui, mas sem Prisma!
-      if (!request.cookies.get("sessionCartId")) {
-        const sessionCartId = crypto.randomUUID();
-        const response = NextResponse.next();
-        response.cookies.set("sessionCartId", sessionCartId);
-        return response;
+    authorized({ request, auth }) {
+      const protectedPaths = [
+        /\/shipping-address/,
+        /\/payment-method/,
+        /\/place-order/,
+        /\/profile/,
+        /\/user(.*)/,
+        /\/order(.*)/,
+        /\/admin/,
+      ];
+
+      const { pathname } = request.nextUrl;
+
+      // Protege rotas
+      if (!auth && protectedPaths.some((p) => p.test(pathname))) {
+        return false;
       }
+      // Sua lógica de cookie pode ficar aqui, mas sem Prisma!
+      // if (!request.cookies.get("sessionCartId")) {
+      //   const sessionCartId = crypto.randomUUID();
+      //   const response = NextResponse.next();
+      //   response.cookies.set("sessionCartId", sessionCartId);
+      //   return response;
+      // }
       return true;
     },
   },

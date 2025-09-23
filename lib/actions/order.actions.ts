@@ -5,7 +5,7 @@ import { formatError } from "../utils";
 import { auth } from "@/auth";
 import { getMyCart } from "./cart.actions";
 import { getUserById } from "./user.actions";
-import { insertOrderItemSchema } from "../validators";
+import { insertOrderSchema } from "../validators";
 import { prisma } from "@/db/prisma";
 import { CartItem } from "@/types";
 
@@ -45,7 +45,7 @@ export async function createOrder() {
     }
 
     //  Create order object
-    const order = insertOrderItemSchema.parse({
+    const order = insertOrderSchema.parse({
       userId: user.id,
       shippingAddress: user.address,
       paymentMethod: user.paymentMethod,
@@ -97,6 +97,7 @@ export async function createOrder() {
     };
   } catch (error) {
     if (isRedirectError(error)) throw error;
+    console.error(error);
     return { success: false, message: formatError(error) };
   }
 }

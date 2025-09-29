@@ -185,7 +185,16 @@ export async function approvePayPalOrder(
     }
 
     // Update order to paid
-    // @todo
+    await updateOrderToPaid({
+      orderId,
+      paymentResult: {
+        id: captureData.id,
+        status: captureData.status,
+        email_address: captureData.payer.email_address,
+        pricePaid:
+          captureData.purchase_units[0]?.payments?.captures[0]?.amount?.value,
+      },
+    });
 
     revalidatePath(`/order/${orderId}`);
 
@@ -248,7 +257,23 @@ async function updateOrderToPaid({
       data: {
         isPaid: true,
         paidAt: new Date(),
+        paymentResult,
       },
     });
   });
+
+  // Get updated order after transaction
+  const updatedOrder = await prisma.order.findFirst({
+    where: { id: orderId },
+    include: {
+      orderitems: true,
+      user: {
+        select: { name: true, email: true },
+      },
+    },
+  });
+
+  if (!updatedOrder) {
+    throw new Error("Order not found");
+  }
 }

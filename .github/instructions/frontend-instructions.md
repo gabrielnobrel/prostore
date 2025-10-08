@@ -1,0 +1,41 @@
+---
+applyTo:
+  - "app/**"
+  - "components/**"
+  - "hooks/**"
+  - "lib/**"
+  - "**/*.tsx"
+  - "**/*.ts"
+---
+
+# Instruções do Agente — Desenvolvimento Frontend com Next.js 15
+
+- Use o App Router para estruturar páginas e rotas.
+- Prefira Server Components sempre que possível.
+- Utilize Client Components apenas quando necessário para interatividade.
+- Organize componentes reutilizáveis na pasta `components/`.
+- Mantenha hooks customizados na pasta `hooks/`.
+- Guarde funções utilitárias na pasta `lib/`.
+- Nomeie componentes e arquivos de componentes em PascalCase.
+- Nomeie hooks customizados com prefixo `use` e em camelCase.
+- Separe lógica de negócio dos componentes de interface.
+- Utilize TypeScript para tipagem forte em todo o projeto.
+- Tipifique todas as props de componentes e retornos de funções.
+- Use React Hooks para gerenciar estado e efeitos.
+- Utilize React Query (TanStack Query) para dados assíncronos e cache.
+- Prefira async/await para operações assíncronas.
+- Implemente tratamento de erros em chamadas assíncronas.
+- Use ESLint e Prettier para manter o código padronizado.
+- Importe módulos externos antes dos internos.
+- Evite imports absolutos fora do escopo do projeto.
+- Documente hooks e funções importantes com JSDoc.
+- Utilize Server Actions para ações no servidor de forma segura.
+- Defina estratégias de cache adequadas (SSR, SSG, ISR) para cada página.
+- Utilize Suspense e estados de loading para UX aprimorada.
+- Prefira o uso de Tailwind CSS para estilização.
+- Use componentes do shadcn/ui para UI consistente.
+- Garanta acessibilidade com roles, labels e navegação por teclado.
+- Otimize imagens com o componente `next/image`.
+- Prefira links do Next.js (`next/link`) para navegação interna.
+- Remova código morto e dependências não utilizadas com frequência.
+- Mantenha a estrutura de pastas limpa e organizada.

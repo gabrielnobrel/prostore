@@ -11,9 +11,9 @@ import { CartItem, PaymentResult } from "@/types";
 import { paypal } from "../paypal";
 import { revalidatePath } from "next/cache";
 import { PAGE_SIZE } from "../constants";
-
+// 
 // Create order and create the order items
-export async function createOrder() {
+export default async function createOrder() {
   try {
     const session = await auth();
     if (!session) throw new Error("User is not authenticated");

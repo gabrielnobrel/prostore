@@ -1,0 +1,30 @@
+{
+  "github.copilot.enable": {
+    "*": true,
+    "markdown": true,
+    "typescript": true,
+    "typescriptreact": true,
+    "javascript": true,
+    "javascriptreact": true
+  },
+  "github.copilot.advanced": {
+    "debug.overrideEngine": "codex"
+  },
+  "files.associations": {
+    "*.instructions.md": "markdown"
+  },
+  "files.exclude": {
+    "node_modules": true,
+    ".next": true,
+    "lib/generated": true
+  },
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "emmet.includeLanguages": {
+    "typescript": "html",
+    "typescriptreact": "html"
+  }
+}

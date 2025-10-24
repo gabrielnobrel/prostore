@@ -133,7 +133,7 @@ export function formUrlQuery({
   return qs.stringifyUrl(
     {
       url: window.location.pathname,
-      query,
+      query: query,
     },
     {
       skipNull: true,

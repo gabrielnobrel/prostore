@@ -13,6 +13,7 @@ import { formatCurrency, formatDateTime, formatNumber } from "@/lib/utils";
 import { BadgeDollarSign, Barcode, CreditCard, Users } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
+import Charts from "./charts";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -93,7 +94,13 @@ const AdminOverviewPage = async () => {
             <CardTitle>Overview</CardTitle>
           </CardHeader>
 
-          <CardContent>{/* Chart Here */}</CardContent>
+          <CardContent>
+            <Charts
+              data={{
+                salesData: summary.salesData,
+              }}
+            />
+          </CardContent>
         </Card>
 
         <Card className="col-span-3">
@@ -102,7 +109,6 @@ const AdminOverviewPage = async () => {
           </CardHeader>
 
           <CardContent>
-            {/* Chart Here */}
             <Table>
               <TableHeader>
                 <TableRow>

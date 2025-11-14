@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import Pagination from "@/components/pagination";
+import DeleteDialog from "@/components/shared/delete-dilog";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -9,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getAllOrders } from "@/lib/actions/order.actions";
+import { deleteOrder, getAllOrders } from "@/lib/actions/order.actions";
 import { requiredAdmin } from "@/lib/auth-guard";
 import { formatId, formatDateTime, formatCurrency } from "@/lib/utils";
 import { Metadata } from "next";
@@ -71,6 +72,7 @@ const AdminOrdersPage = async (props: {
                   <Button asChild variant={"outline"} size={"sm"}>
                     <Link href={`/order/${order.id}`}>Details</Link>
                   </Button>
+                  <DeleteDialog id={order.id} action={deleteOrder} />
                 </TableCell>
               </TableRow>
             ))}

@@ -1,9 +1,7 @@
 import type { NextConfig } from "next";
-import { hostname } from "os";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  iamges: {
+  images: {
     remotePatterns: [
       {
         protocol: "https",

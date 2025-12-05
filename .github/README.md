@@ -1,56 +1,56 @@
-# VS Code Agent Prompt Instructions
+# Instruções de Prompt dos Agentes VS Code
 
-This directory contains instruction files that are automatically applied when using AI agents (like GitHub Copilot) in VS Code for the ProStore project.
+Este diretório contém arquivos de instruções que são aplicados automaticamente ao usar agentes de IA (como GitHub Copilot) no VS Code para o projeto ProStore.
 
-## File Structure
+## Estrutura de Arquivos
 
 ```
 .github/
-├── copilot-instructions.md    # General GitHub Copilot workspace instructions
+├── copilot-instructions.md    # Instruções gerais do workspace do GitHub Copilot
 └── agents/
-    ├── api.instructions.md    # Backend/API development instructions
-    └── frontend.instructions.md # Frontend/UI development instructions
+    ├── api.instructions.md    # Instruções de desenvolvimento Backend/API
+    └── frontend.instructions.md # Instruções de desenvolvimento Frontend/UI
 ```
 
-## How It Works
+## Como Funciona
 
-VS Code AI agents automatically read and apply these instruction files based on the context of your work:
+Agentes de IA do VS Code leem e aplicam automaticamente estes arquivos de instrução baseados no contexto do seu trabalho:
 
-- **`copilot-instructions.md`** - Applied globally across the entire workspace
-- **`agents/api.instructions.md`** - Applied when working on backend/server-side code
-- **`agents/frontend.instructions.md`** - Applied when working on frontend/UI components
+- **`copilot-instructions.md`** - Aplicado globalmente em todo o workspace
+- **`agents/api.instructions.md`** - Aplicado ao trabalhar em código backend/server-side
+- **`agents/frontend.instructions.md`** - Aplicado ao trabalhar em componentes frontend/UI
 
-## Automatic Application
+## Aplicação Automática
 
-These files are automatically considered by AI agents when:
-- Generating code suggestions
-- Reviewing code
-- Answering questions about the codebase
-- Providing explanations or documentation
+Estes arquivos são automaticamente considerados por agentes de IA quando:
+- Gerando sugestões de código
+- Revisando código
+- Respondendo perguntas sobre a base de código
+- Fornecendo explicações ou documentação
 
-You don't need to manually reference these files - they work automatically in the background to provide context-aware assistance.
+Você não precisa referenciar manualmente estes arquivos - eles funcionam automaticamente em segundo plano para fornecer assistência ciente do contexto.
 
-## File Contents
+## Conteúdo dos Arquivos
 
-Each instruction file contains:
-- Technology stack information
-- Code patterns and conventions
-- Best practices and guidelines
-- Security considerations
-- File organization patterns
-- Common utilities and helpers
+Cada arquivo de instrução contém:
+- Informações da stack tecnológica
+- Padrões e convenções de código
+- Melhores práticas e diretrizes
+- Considerações de segurança
+- Padrões de organização de arquivos
+- Utilitários e helpers comuns
 
-## Customization
+## Customização
 
-You can modify these files to:
-- Update coding standards
-- Add new conventions
-- Include project-specific guidelines
-- Adjust the level of detail for different team members
+Você pode modificar estes arquivos para:
+- Atualizar padrões de código
+- Adicionar novas convenções
+- Incluir diretrizes específicas do projeto
+- Ajustar o nível de detalhe para diferentes membros da equipe
 
-## Benefits
+## Benefícios
 
-- **Consistency**: Ensures all team members get the same coding guidance
-- **Efficiency**: No need to manually provide context each time
-- **Quality**: Helps maintain code quality standards automatically
-- **Onboarding**: New team members get instant access to project conventions
+- **Consistência**: Garante que todos os membros da equipe recebam a mesma orientação de código
+- **Eficiência**: Não há necessidade de fornecer contexto manualmente a cada vez
+- **Qualidade**: Ajuda a manter padrões de qualidade de código automaticamente
+- **Onboarding**: Novos membros da equipe obtêm acesso instantâneo às convenções do projeto

@@ -1,123 +1,123 @@
-# GitHub Copilot Instructions for ProStore
+# Instruções do GitHub Copilot para ProStore
 
-This is a Next.js 15 e-commerce application called ProStore. When assisting with this project, please follow these guidelines:
+Esta é uma aplicação de e-commerce Next.js 15 chamada ProStore. Ao auxiliar com este projeto, siga estas diretrizes:
 
-## Project Overview
-ProStore is a modern e-commerce platform built with:
+## Visão Geral do Projeto
+ProStore é uma plataforma moderna de e-commerce construída com:
 - **Frontend**: Next.js 15, React 19, TypeScript, TailwindCSS, shadcn/ui
 - **Backend**: Next.js App Router, Prisma ORM, PostgreSQL, NextAuth.js
-- **Deployment**: Vercel with Neon Database
+- **Deploy**: Vercel com Neon Database
 
-## Code Style & Conventions
+## Estilo de Código & Convenções
 
-### General Guidelines
-- Write clean, readable, and maintainable TypeScript code
-- Follow existing code patterns and naming conventions
-- Use meaningful variable and function names
-- Add JSDoc comments for complex functions
-- Prefer functional programming patterns where appropriate
+### Diretrizes Gerais
+- Escreva código TypeScript limpo, legível e de fácil manutenção
+- Siga padrões de código existentes e convenções de nomenclatura
+- Use nomes significativos para variáveis e funções
+- Adicione comentários JSDoc para funções complexas
+- Prefira padrões de programação funcional quando apropriado
 
-### TypeScript Standards
-- Use strict TypeScript settings
-- Define proper interfaces and types
-- Avoid using `any` type - use proper typing
-- Use type inference where possible
-- Export types from `/types` directory
+### Padrões TypeScript
+- Use configurações TypeScript rigorosas
+- Defina interfaces e tipos adequados
+- Evite usar o tipo `any` - use tipagem adequada
+- Use inferência de tipos sempre que possível
+- Exporte tipos do diretório `/types`
 
-### Import Organization
-- Group imports logically: React/Next.js, third-party, local
-- Use absolute imports with `@/` prefix for project files
-- Import types separately when needed: `import type { ... }`
+### Organização de Importações
+- Agrupe importações logicamente: React/Next.js, terceiros, locais
+- Use importações absolutas com prefixo `@/` para arquivos do projeto
+- Importe tipos separadamente quando necessário: `import type { ... }`
 
-### File Naming
-- Use kebab-case for file names: `user-profile.tsx`
-- Use PascalCase for component names: `UserProfile`
-- Use camelCase for variables and functions: `getUserData`
-- Use UPPER_CASE for constants: `MAX_FILE_SIZE`
+### Nomenclatura de Arquivos
+- Use kebab-case para nomes de arquivos: `user-profile.tsx`
+- Use PascalCase para nomes de componentes: `UserProfile`
+- Use camelCase para variáveis e funções: `getUserData`
+- Use UPPER_CASE para constantes: `MAX_FILE_SIZE`
 
-## Architecture Patterns
+## Padrões de Arquitetura
 
-### Component Architecture
-- Keep components small and focused on single responsibility
-- Use composition over inheritance
-- Separate business logic from presentation logic
-- Use custom hooks for reusable logic
+### Arquitetura de Componentes
+- Mantenha componentes pequenos e focados em responsabilidade única
+- Use composição ao invés de herança
+- Separe lógica de negócio da lógica de apresentação
+- Use hooks customizados para lógica reutilizável
 
-### Data Flow
-- Use server actions for data mutations
-- Leverage Next.js built-in caching for data fetching
-- Handle loading and error states consistently
-- Use proper form validation with Zod schemas
+### Fluxo de Dados
+- Use server actions para mutações de dados
+- Aproveite o cache integrado do Next.js para busca de dados
+- Trate estados de loading e erro consistentemente
+- Use validação adequada de formulários com esquemas Zod
 
-### Error Handling
-- Implement proper error boundaries
-- Use try-catch blocks in server actions
-- Return structured error responses
-- Provide user-friendly error messages
+### Tratamento de Erros
+- Implemente error boundaries adequados
+- Use blocos try-catch em server actions
+- Retorne respostas de erro estruturadas
+- Forneça mensagens de erro amigáveis ao usuário
 
-## Development Workflow
+## Fluxo de Desenvolvimento
 
-### Before Writing Code
-1. Understand the existing codebase structure
-2. Check for similar implementations to maintain consistency
-3. Consider the impact on other parts of the application
-4. Ensure TypeScript types are properly defined
+### Antes de Escrever Código
+1. Entenda a estrutura da base de código existente
+2. Verifique implementações similares para manter consistência
+3. Considere o impacto em outras partes da aplicação
+4. Garanta que os tipos TypeScript estejam adequadamente definidos
 
-### Code Implementation
-1. Write the minimal code necessary to solve the problem
-2. Follow the established patterns in the codebase
-3. Include proper error handling and validation
-4. Ensure responsive design for UI components
-5. Add proper accessibility attributes
+### Implementação de Código
+1. Escreva o código mínimo necessário para resolver o problema
+2. Siga os padrões estabelecidos na base de código
+3. Inclua tratamento adequado de erros e validação
+4. Garanta design responsivo para componentes de UI
+5. Adicione atributos de acessibilidade adequados
 
-### Testing Considerations
-- Write testable code with proper separation of concerns
-- Consider edge cases and error scenarios
-- Ensure proper validation of user inputs
-- Test responsive behavior for UI components
+### Considerações de Teste
+- Escreva código testável com separação adequada de responsabilidades
+- Considere casos extremos e cenários de erro
+- Garanta validação adequada de entradas do usuário
+- Teste comportamento responsivo para componentes de UI
 
-## Specific Guidelines
+## Diretrizes Específicas
 
-### Database Operations
-- Always validate data before database operations
-- Use Prisma's type-safe query methods
-- Handle database errors gracefully
-- Consider database performance and query optimization
+### Operações de Banco de Dados
+- Sempre valide dados antes de operações de banco de dados
+- Use métodos type-safe do Prisma
+- Trate erros de banco de dados graciosamente
+- Considere performance e otimização de consultas
 
-### Authentication & Security
-- Always check user authentication for protected operations
-- Validate user permissions before sensitive actions
-- Never expose sensitive data in client-side code
-- Use environment variables for configuration
+### Autenticação & Segurança
+- Sempre verifique autenticação do usuário para operações protegidas
+- Valide permissões do usuário antes de ações sensíveis
+- Nunca exponha dados sensíveis no código client-side
+- Use variáveis de ambiente para configuração
 
-### Performance Optimization
-- Use Next.js Image component for images
-- Implement proper loading states
-- Consider code splitting for large components
-- Optimize bundle size by avoiding unnecessary imports
+### Otimização de Performance
+- Use o componente Next.js Image para imagens
+- Implemente estados de loading adequados
+- Considere code splitting para componentes grandes
+- Otimize o tamanho do bundle evitando importações desnecessárias
 
-### Accessibility
-- Use semantic HTML elements
-- Include proper ARIA attributes
-- Ensure keyboard navigation works
-- Maintain sufficient color contrast
-- Test with screen readers when possible
+### Acessibilidade
+- Use elementos HTML semânticos
+- Inclua atributos ARIA adequados
+- Garanta que a navegação por teclado funcione
+- Mantenha contraste de cor suficiente
+- Teste com leitores de tela quando possível
 
-## Code Quality Checklist
-- [ ] TypeScript types are properly defined
-- [ ] Error handling is implemented
-- [ ] Code follows existing patterns
-- [ ] Responsive design is considered (for UI)
-- [ ] Accessibility guidelines are followed (for UI)
-- [ ] Performance implications are considered
-- [ ] Security best practices are followed
-- [ ] Code is properly documented when complex
+## Checklist de Qualidade de Código
+- [ ] Tipos TypeScript estão adequadamente definidos
+- [ ] Tratamento de erros está implementado
+- [ ] Código segue padrões existentes
+- [ ] Design responsivo é considerado (para UI)
+- [ ] Diretrizes de acessibilidade são seguidas (para UI)
+- [ ] Implicações de performance são consideradas
+- [ ] Práticas de segurança são seguidas
+- [ ] Código está adequadamente documentado quando complexo
 
-## Common Utilities Available
-- `cn()` - Utility for conditional class names
-- `formatError()` - Standardized error formatting
-- `convertToPlainObject()` - Convert Prisma objects for client use
-- `formatCurrency()` - Format currency values
-- `formatId()` - Shorten UUIDs for display
+## Utilitários Comuns Disponíveis
+- `cn()` - Utilitário para nomes de classes condicionais
+- `formatError()` - Formatação padronizada de erros
+- `convertToPlainObject()` - Converte objetos Prisma para uso no cliente
+- `formatCurrency()` - Formatar valores de moeda
+- `formatId()` - Encurtar UUIDs para exibição
 
-Remember to always prioritize code quality, maintainability, and user experience when contributing to this project.
+Lembre-se de sempre priorizar qualidade de código, facilidade de manutenção e experiência do usuário ao contribuir com este projeto.

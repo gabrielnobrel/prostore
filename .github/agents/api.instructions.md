@@ -1,88 +1,88 @@
-# API Development Instructions
+# Instruções de Desenvolvimento de API
 
-You are working on a Next.js e-commerce application called ProStore with the following backend architecture:
+Você está trabalhando em uma aplicação de e-commerce Next.js chamada ProStore com a seguinte arquitetura backend:
 
-## Technology Stack
-- **Framework**: Next.js 15 with App Router
-- **Database**: PostgreSQL with Prisma ORM
-- **Authentication**: NextAuth.js v5 with Credentials provider
-- **Validation**: Zod schemas
-- **Password Hashing**: bcrypt-ts-edge
-- **Deployment**: Vercel with Neon Database
+## Stack Tecnológico
+- **Framework**: Next.js 15 com App Router
+- **Banco de Dados**: PostgreSQL com Prisma ORM
+- **Autenticação**: NextAuth.js v5 com provedor Credentials
+- **Validação**: Esquemas Zod
+- **Hash de Senhas**: bcrypt-ts-edge
+- **Deploy**: Vercel com Neon Database
 
-## Code Patterns & Conventions
+## Padrões de Código & Convenções
 
 ### Server Actions
-- Use `"use server"` directive at the top of action files
-- Place server actions in `/lib/actions/` directory
-- Follow the pattern: `entity.actions.ts` (e.g., `user.actions.ts`, `product.actions.ts`)
-- Always handle errors with try-catch and return structured responses:
+- Use a diretiva `"use server"` no topo dos arquivos de ação
+- Coloque server actions no diretório `/lib/actions/`
+- Siga o padrão: `entity.actions.ts` (ex.: `user.actions.ts`, `product.actions.ts`)
+- Sempre trate erros com try-catch e retorne respostas estruturadas:
   ```typescript
-  return { success: true, message: "Operation successful" };
-  // or
+  return { success: true, message: "Operação bem-sucedida" };
+  // ou
   return { success: false, message: formatError(error) };
   ```
 
-### Database Operations
-- Use Prisma client imported from `@/db/prisma`
-- Always use transactions for complex operations
-- Use `convertToPlainObject()` utility for Prisma objects in client components
-- Follow the pattern for database queries:
+### Operações de Banco de Dados
+- Use o cliente Prisma importado de `@/db/prisma`
+- Sempre use transações para operações complexas
+- Use o utilitário `convertToPlainObject()` para objetos Prisma em componentes cliente
+- Siga o padrão para consultas de banco de dados:
   ```typescript
   const user = await prisma.user.findFirst({
     where: { id: userId },
   });
   ```
 
-### Authentication
-- Use `auth()` from `@/auth-edge` for server-side auth in server actions
-- Session management with JWT strategy (30-day expiry)
-- User roles: 'user' and 'admin'
-- Protected routes use middleware with authorized callback
+### Autenticação
+- Use `auth()` de `@/auth-edge` para autenticação server-side em server actions
+- Gerenciamento de sessão com estratégia JWT (expiração de 30 dias)
+- Papéis de usuário: 'user' e 'admin'
+- Rotas protegidas usam middleware com callback autorizado
 
-### API Routes
-- Place API routes in `/app/api/` directory
-- Use proper HTTP status codes and error handling
-- Validate request data with Zod schemas
-- Return JSON responses with consistent structure
+### Rotas de API
+- Coloque rotas de API no diretório `/app/api/`
+- Use códigos de status HTTP adequados e tratamento de erros
+- Valide dados de requisição com esquemas Zod
+- Retorne respostas JSON com estrutura consistente
 
-### Data Validation
-- Use Zod schemas from `/lib/validators.ts`
-- Validate all user inputs before database operations
-- Use `formatError()` utility for consistent error formatting
+### Validação de Dados
+- Use esquemas Zod de `/lib/validators.ts`
+- Valide todas as entradas do usuário antes das operações de banco de dados
+- Use o utilitário `formatError()` para formatação consistente de erros
 
-### Error Handling
-- Use `formatError()` utility from `/lib/utils.ts`
-- Handle specific error types: ZodError, PrismaClientKnownRequestError
-- Always return user-friendly error messages
+### Tratamento de Erros
+- Use o utilitário `formatError()` de `/lib/utils.ts`
+- Trate tipos de erro específicos: ZodError, PrismaClientKnownRequestError
+- Sempre retorne mensagens de erro amigáveis ao usuário
 
-## File Organization
+## Organização de Arquivos
 ```
 lib/
 ├── actions/           # Server actions
-├── validators.ts      # Zod schemas
-├── utils.ts          # Utility functions
-└── generated/        # Generated Prisma client
+├── validators.ts      # Esquemas Zod
+├── utils.ts          # Funções utilitárias
+└── generated/        # Cliente Prisma gerado
 
 app/
-├── api/              # API routes
-├── (auth)/           # Auth-related pages
-└── (root)/           # Main application pages
+├── api/              # Rotas de API
+├── (auth)/           # Páginas relacionadas à autenticação
+└── (root)/           # Páginas principais da aplicação
 ```
 
-## Best Practices
-1. Always validate input data with Zod schemas
-2. Use TypeScript types from `/types` directory
-3. Handle authentication state properly in server actions
-4. Use proper error boundaries and error handling
-5. Follow the existing code patterns for consistency
-6. Use utility functions from `/lib/utils.ts` for common operations
-7. Ensure database queries are optimized and secure
-8. Use environment variables for sensitive configuration
+## Melhores Práticas
+1. Sempre valide dados de entrada com esquemas Zod
+2. Use tipos TypeScript do diretório `/types`
+3. Trate o estado de autenticação adequadamente em server actions
+4. Use error boundaries e tratamento de erros adequados
+5. Siga os padrões de código existentes para consistência
+6. Use funções utilitárias de `/lib/utils.ts` para operações comuns
+7. Garanta que consultas de banco de dados sejam otimizadas e seguras
+8. Use variáveis de ambiente para configuração sensível
 
-## Security Guidelines
-- Never expose sensitive user data in API responses
-- Always validate user permissions before operations
-- Use parameterized queries (Prisma handles this)
-- Sanitize user inputs
-- Follow NextAuth.js security best practices
+## Diretrizes de Segurança
+- Nunca exponha dados sensíveis do usuário em respostas de API
+- Sempre valide permissões do usuário antes de operações
+- Use consultas parametrizadas (Prisma já faz isso)
+- Sanitize entradas do usuário
+- Siga as melhores práticas de segurança do NextAuth.js

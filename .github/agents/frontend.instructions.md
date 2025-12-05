@@ -1,36 +1,36 @@
-# Frontend Development Instructions
+# Instruções de Desenvolvimento Frontend
 
-You are working on a Next.js e-commerce application called ProStore with the following frontend architecture:
+Você está trabalhando em uma aplicação de e-commerce Next.js chamada ProStore com a seguinte arquitetura frontend:
 
-## Technology Stack
-- **Framework**: Next.js 15 with App Router
-- **React**: 19.1.0 with TypeScript
-- **Styling**: TailwindCSS 4 with custom design tokens
-- **UI Components**: shadcn/ui with Radix UI primitives
-- **Icons**: Lucide React
-- **Forms**: React Hook Form with Zod validation
-- **Themes**: next-themes for dark/light mode
-- **Notifications**: Sonner for toast notifications
+## Stack Tecnológico
+- **Framework**: Next.js 15 com App Router
+- **React**: 19.1.0 com TypeScript
+- **Estilização**: TailwindCSS 4 com design tokens customizados
+- **Componentes UI**: shadcn/ui com primitivos Radix UI
+- **Ícones**: Lucide React
+- **Formulários**: React Hook Form com validação Zod
+- **Temas**: next-themes para modo claro/escuro
+- **Notificações**: Sonner para notificações toast
 
-## Code Patterns & Conventions
+## Padrões de Código & Convenções
 
-### Component Structure
-- Use TypeScript functional components with proper typing
-- Place reusable components in `/components` directory
-- Use shadcn/ui components as building blocks
-- Follow the existing component patterns in the codebase
+### Estrutura de Componentes
+- Use componentes funcionais TypeScript com tipagem adequada
+- Coloque componentes reutilizáveis no diretório `/components`
+- Use componentes shadcn/ui como blocos de construção
+- Siga os padrões de componentes existentes na base de código
 
-### Styling Guidelines
-- Use TailwindCSS classes with the custom design system
-- Leverage predefined utility classes from `/assets/styles/globals.css`:
-  - `.wrapper` - Max width container with responsive padding
-  - `.flex-start`, `.flex-center`, `.flex-between` - Flexbox utilities
-  - `.h1-bold`, `.h2-bold`, `.h3-bold` - Typography utilities
-- Use CSS custom properties for consistent theming
-- Support both light and dark modes
+### Diretrizes de Estilização
+- Use classes TailwindCSS com o sistema de design customizado
+- Aproveite classes utilitárias predefinidas de `/assets/styles/globals.css`:
+  - `.wrapper` - Container de largura máxima com padding responsivo
+  - `.flex-start`, `.flex-center`, `.flex-between` - Utilitários flexbox
+  - `.h1-bold`, `.h2-bold`, `.h3-bold` - Utilitários de tipografia
+- Use propriedades CSS customizadas para temas consistentes
+- Suporte tanto modo claro quanto escuro
 
-### Layout System
-- Main layout structure in `/app/layout.tsx`:
+### Sistema de Layout
+- Estrutura principal de layout em `/app/layout.tsx`:
   ```tsx
   <div className="flex h-screen flex-col">
     <Header />
@@ -38,101 +38,101 @@ You are working on a Next.js e-commerce application called ProStore with the fol
     <Footer />
   </div>
   ```
-- Use the `wrapper` class for content containers
-- Ensure responsive design across all breakpoints
+- Use a classe `wrapper` para containers de conteúdo
+- Garanta design responsivo em todos os breakpoints
 
-### Form Handling
-- Use React Hook Form with Zod resolvers for validation
-- Follow this pattern for forms:
+### Manipulação de Formulários
+- Use React Hook Form com resolvers Zod para validação
+- Siga este padrão para formulários:
   ```tsx
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: { ... }
   });
   ```
-- Use server actions for form submissions
-- Handle loading states and error messages appropriately
+- Use server actions para submissão de formulários
+- Trate estados de loading e mensagens de erro adequadamente
 
-### State Management
-- Use React state hooks for local component state
-- Use server actions for data mutations
-- Leverage Next.js built-in caching for data fetching
-- Use `useFormState` for server action integration
+### Gerenciamento de Estado
+- Use hooks de estado React para estado local de componentes
+- Use server actions para mutações de dados
+- Aproveite o cache integrado do Next.js para busca de dados
+- Use `useFormState` para integração com server actions
 
-### Navigation & Routing
-- Use Next.js App Router for navigation
-- Organize pages in route groups: `(auth)`, `(root)`
-- Use proper loading and error boundaries
-- Implement proper SEO with metadata API
+### Navegação & Roteamento
+- Use Next.js App Router para navegação
+- Organize páginas em grupos de rotas: `(auth)`, `(root)`
+- Use loading e error boundaries adequados
+- Implemente SEO adequado com a API de metadata
 
-## UI Component Guidelines
+## Diretrizes de Componentes UI
 
-### Design System
-- Primary colors: `oklch(0.18 0.15 257)` (dark blue)
-- Background: `oklch(1 0 0)` (white) / `oklch(0.13 0.19 257)` (dark)
-- Use the defined color palette in CSS custom properties
-- Follow the established spacing and typography scale
+### Sistema de Design
+- Cores primárias: `oklch(0.18 0.15 257)` (azul escuro)
+- Fundo: `oklch(1 0 0)` (branco) / `oklch(0.13 0.19 257)` (escuro)
+- Use a paleta de cores definida nas propriedades CSS customizadas
+- Siga a escala de espaçamento e tipografia estabelecida
 
-### Component Composition
-- Build complex UIs using shadcn/ui primitives
-- Use Radix UI components for accessibility
-- Implement proper keyboard navigation
-- Ensure ARIA compliance
+### Composição de Componentes
+- Construa UIs complexas usando primitivos shadcn/ui
+- Use componentes Radix UI para acessibilidade
+- Implemente navegação por teclado adequada
+- Garanta conformidade com ARIA
 
-### Responsive Design
-- Mobile-first approach with TailwindCSS breakpoints
-- Use responsive utilities: `sm:`, `md:`, `lg:`, `xl:`
-- Test across different screen sizes
-- Ensure touch-friendly interfaces
+### Design Responsivo
+- Abordagem mobile-first com breakpoints TailwindCSS
+- Use utilitários responsivos: `sm:`, `md:`, `lg:`, `xl:`
+- Teste em diferentes tamanhos de tela
+- Garanta interfaces amigáveis ao toque
 
-## File Organization
+## Organização de Arquivos
 ```
 app/
-├── (auth)/           # Authentication pages
-├── (root)/           # Main application pages
-├── layout.tsx        # Root layout
-├── loading.tsx       # Global loading UI
-└── not-found.tsx     # 404 page
+├── (auth)/           # Páginas de autenticação
+├── (root)/           # Páginas principais da aplicação
+├── layout.tsx        # Layout raiz
+├── loading.tsx       # UI de loading global
+└── not-found.tsx     # Página 404
 
 components/
-├── ui/               # shadcn/ui components
-└── ...               # Custom components
+├── ui/               # Componentes shadcn/ui
+└── ...               # Componentes customizados
 
 assets/
 └── styles/
-    └── globals.css   # Global styles and utilities
+    └── globals.css   # Estilos globais e utilitários
 ```
 
-## Best Practices
-1. **Accessibility**: Use semantic HTML and proper ARIA attributes
-2. **Performance**: Optimize images, use Next.js Image component
-3. **SEO**: Implement proper metadata and Open Graph tags
-4. **Type Safety**: Use TypeScript strictly, avoid `any` types
-5. **Code Reusability**: Create reusable components and utilities
-6. **Error Handling**: Implement proper error boundaries and fallbacks
-7. **Loading States**: Show appropriate loading indicators
-8. **User Feedback**: Use toast notifications for user actions
+## Melhores Práticas
+1. **Acessibilidade**: Use HTML semântico e atributos ARIA adequados
+2. **Performance**: Otimize imagens, use componente Next.js Image
+3. **SEO**: Implemente metadata adequada e tags Open Graph
+4. **Segurança de Tipos**: Use TypeScript rigorosamente, evite tipos `any`
+5. **Reutilização de Código**: Crie componentes e utilitários reutilizáveis
+6. **Tratamento de Erros**: Implemente error boundaries e fallbacks adequados
+7. **Estados de Loading**: Mostre indicadores de loading apropriados
+8. **Feedback do Usuário**: Use notificações toast para ações do usuário
 
-## Styling Best Practices
-1. Use utility classes instead of custom CSS when possible
-2. Group related classes logically in className strings
-3. Use the predefined utility classes for consistency
-4. Implement proper hover and focus states
-5. Ensure sufficient color contrast for accessibility
-6. Use consistent spacing using the design system scale
+## Melhores Práticas de Estilização
+1. Use classes utilitárias ao invés de CSS customizado quando possível
+2. Agrupe classes relacionadas logicamente em strings className
+3. Use as classes utilitárias predefinidas para consistência
+4. Implemente estados de hover e focus adequados
+5. Garanta contraste de cor suficiente para acessibilidade
+6. Use espaçamento consistente usando a escala do sistema de design
 
-## Development Workflow
-1. Start with designing the component structure
-2. Implement the basic functionality
-3. Add proper styling with TailwindCSS
-4. Ensure responsive behavior
-5. Add accessibility features
-6. Test across different browsers and devices
-7. Optimize for performance
+## Fluxo de Desenvolvimento
+1. Comece projetando a estrutura do componente
+2. Implemente a funcionalidade básica
+3. Adicione estilização adequada com TailwindCSS
+4. Garanta comportamento responsivo
+5. Adicione recursos de acessibilidade
+6. Teste em diferentes navegadores e dispositivos
+7. Otimize para performance
 
-## Common Patterns
-- Use `cn()` utility function for conditional class names
-- Implement proper loading and error states
-- Use proper TypeScript interfaces for props
-- Follow the existing naming conventions
-- Ensure components are properly documented with comments when complex
+## Padrões Comuns
+- Use a função utilitária `cn()` para nomes de classes condicionais
+- Implemente estados de loading e erro adequados
+- Use interfaces TypeScript adequadas para props
+- Siga as convenções de nomenclatura existentes
+- Garanta que componentes sejam adequadamente documentados com comentários quando complexos

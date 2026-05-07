@@ -16,11 +16,12 @@ import { ShippingAddress } from "@/types";
 import { auth } from "@/auth-edge";
 import z from "zod";
 import { PAGE_SIZE } from "../constants";
+import { revalidatePath } from "next/cache";
 
 // Sign in the user with credentials
 export async function signInWithCredentials(
   prevState: unknown,
-  formData: FormData
+  formData: FormData,
 ) {
   try {
     const user = signInFormSchema.parse({
@@ -130,7 +131,7 @@ export async function updateUserAddress(data: ShippingAddress) {
 
 // Update user's payment method
 export async function updateUserPaymentMethod(
-  data: z.infer<typeof paymentMethodSchema>
+  data: z.infer<typeof paymentMethodSchema>,
 ) {
   try {
     const session = await auth();
@@ -204,4 +205,24 @@ export async function getAllUsers({
     dataCount,
     totalPages: Math.ceil(dataCount / limit),
   };
+}
+
+// Delete a user
+export async function deleteUser(id: string) {
+  try {
+    await prisma.user.delete({
+      where: { id },
+    });
+
+    revalidatePath("/admin/users");
+    return {
+      success: true,
+      message: "User deleted successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: formatError(error),
+    };
+  }
 }

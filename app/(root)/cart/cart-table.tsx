@@ -1,8 +1,11 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useTransition } from "react";
-import { addItemToCart, removeItemFromCart } from "@/lib/actions/cart.actions";
+import {
+  addItemToCart,
+  removeItemFromCart,
+  proceedToCheckout,
+} from "@/lib/actions/cart.actions";
 import { ArrowRight, Loader, Minus, Plus } from "lucide-react";
 import { Cart } from "@/types";
 import Link from "next/link";
@@ -19,9 +22,9 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { formatCurrency } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
+import { redirect } from "next/navigation";
 
 const CartTable = ({ cart }: { cart?: Cart }) => {
-  const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   return (
@@ -70,7 +73,7 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
                         onClick={() =>
                           startTransition(async () => {
                             const res = await removeItemFromCart(
-                              item.productId
+                              item.productId,
                             );
 
                             if (!res.success) {
@@ -130,7 +133,7 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
                 className="w-full"
                 disabled={isPending}
                 onClick={() =>
-                  startTransition(() => router.push("/shipping-address"))
+                  startTransition(() => redirect("/shipping-address"))
                 }
               >
                 {isPending ? (

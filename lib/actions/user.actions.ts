@@ -28,7 +28,13 @@ export async function signInWithCredentials(
       password: formData.get("password"),
     });
 
-    await signIn("credentials", user);
+    const callbackUrl = (formData.get("callbackUrl") as string) || "/";
+
+    await signIn("credentials", {
+      ...user,
+      redirect: true,
+      redirectTo: callbackUrl,
+    });
 
     return { success: true, message: "Signed in successfully" };
   } catch (error) {

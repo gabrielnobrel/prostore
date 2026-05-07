@@ -1,10 +1,11 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 /* Defina seus design tokens como theme variables */
 @theme {
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --background: oklch(1 0 0); /* branco */
   --foreground: oklch(0.13 0.19 257); /* quase preto */
   --card: oklch(1 0 0);

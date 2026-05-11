@@ -162,7 +162,7 @@ export async function createPayPalOrder(orderId: string) {
 // Approve paypal order and update order to paid
 export async function approvePayPalOrder(
   orderId: string,
-  data: { orderID: string }
+  data: { orderID: string },
 ) {
   try {
     // Get order from database
@@ -359,11 +359,26 @@ export async function getOrderSummary() {
 export async function getAllOrders({
   limit = PAGE_SIZE,
   page,
+  query,
 }: {
   limit?: number;
   page: number;
+  query: string;
 }) {
+  const queryFilter =
+    query && query !== "all"
+      ? {
+          user: {
+            name: {
+              contains: query,
+              mode: "insensitive" as const,
+            },
+          },
+        }
+      : {};
+
   const data = await prisma.order.findMany({
+    where: queryFilter,
     orderBy: { createdAt: "desc" },
     take: limit,
     skip: (page - 1) * limit,
@@ -372,7 +387,9 @@ export async function getAllOrders({
     },
   });
 
-  const dataCount = await prisma.order.count();
+  const dataCount = await prisma.order.count({
+    where: queryFilter,
+  });
 
   return {
     data,

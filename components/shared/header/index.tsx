@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Menu from "./menu";
 import CategoryDrawer from "./category-drawer";
+import Search from "./search";
 
 const Header = () => {
   return (
@@ -25,6 +26,9 @@ const Header = () => {
           </Link>
         </div>
 
+        <div className="hidden md:block">
+          <Search />
+        </div>
         <div className="space-x-2">
           <Menu />
         </div>

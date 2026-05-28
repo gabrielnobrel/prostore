@@ -1,12 +1,10 @@
 generator client {
-  provider        = "prisma-client-js"
-  output          = "../lib/generated/prisma"
-  previewFeatures = ["driverAdapters"]
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model product {
@@ -25,6 +23,7 @@ model product {
   banner      String?
   createdAt   DateTime    @default(now()) @db.Timestamp(6)
   OrderItem   OrderItem[]
+  reviews     Review[]
 }
 
 model User {
@@ -44,6 +43,7 @@ model User {
   Cart          Cart[]
   Order         Order[]
   OrderItem     OrderItem[]
+  reviews       Review[]
 }
 
 model Account {
@@ -132,4 +132,18 @@ model OrderItem {
   userId String? @db.Uuid
 
   @@id([orderId, productId], map: "orderitems_orderId_productId_pk")
+}
+
+model Review {
+  id                 String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId             String   @db.Uuid
+  productId          String   @db.Uuid
+  rating             Int
+  title              String
+  description        String
+  isVerifiedPurchase Boolean  @default(true)
+  createdAt          DateTime @default(now()) @db.Timestamp(6)
+  product            product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

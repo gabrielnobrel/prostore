@@ -16,19 +16,27 @@ const ReviewList = ({
 }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
 
+  const reload = () => {
+    console.log("Review Submitted");
+  };
+
   return (
     <>
       <div className="spacey-4">
         {reviews.length === 0 && <div>No reviews yet</div>}
 
         {userId ? (
-          <ReviewForm userId={userId} productId={productId} />
+          <ReviewForm
+            userId={userId}
+            productId={productId}
+            onReviewSubmitted={reload}
+          />
         ) : (
           <div>
             Please{" "}
             <Link
               className="text-blue-700 px-2"
-              href={`/sign-in?callbackUrl=/product${productSlug}`}
+              href={`/sign-in?callbackUrl=/product/${productSlug}`}
             >
               Sign-in
             </Link>

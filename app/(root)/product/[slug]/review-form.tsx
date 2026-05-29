@@ -24,13 +24,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { createUpdateReview } from "@/lib/actions/review.actions";
 import { reviewFormDefaultValues } from "@/lib/constants";
 import { insertReviewSchema } from "@/lib/validators";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { StarIcon } from "lucide-react";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
 
@@ -41,7 +43,7 @@ const ReviewForm = ({
 }: {
   userId: string;
   productId: string;
-  onReviewSubmitted?: () => void;
+  onReviewSubmitted: () => void;
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -51,7 +53,27 @@ const ReviewForm = ({
   });
 
   const handleOpenForm = () => {
+    form.setValue("productId", productId);
+    form.setValue("userId", userId);
+
     setOpen(true);
+  };
+
+  // Submit Form Handler
+  const onsubmit: SubmitHandler<z.infer<typeof insertReviewSchema>> = async (
+    values,
+  ) => {
+    const res = await createUpdateReview({ ...values, productId });
+
+    if (!res.success) {
+      return toast.error(res.mesage);
+    }
+
+    setOpen(false);
+
+    onReviewSubmitted();
+
+    toast(res.message);
   };
 
   return (
@@ -62,7 +84,7 @@ const ReviewForm = ({
 
       <DialogContent className="sm:max-w-[425px]">
         <Form {...form}>
-          <form method="post">
+          <form method="post" onSubmit={form.handleSubmit(onsubmit)}>
             <DialogHeader>
               <DialogTitle>Write a Review</DialogTitle>
               <DialogDescription>
@@ -90,7 +112,7 @@ const ReviewForm = ({
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter description" {...field} />
+                      <Textarea placeholder="Enter description" {...field} />
                     </FormControl>
                   </FormItem>
                 )}

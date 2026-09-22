@@ -1,14 +1,20 @@
+"use client";
+
 import { loadStripe } from "@stripe/stripe-js";
 import {
-  Elements,
+  CheckoutProvider,
   PaymentElement,
-  useElements,
-  useStripe,
-} from "@stripe/react-stripe-js";
+  useCheckout,
+} from "@stripe/react-stripe-js/checkout";
+
 import { useTheme } from "next-themes";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/utils";
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+);
 
 const StripePayment = ({
   priceInCents,
@@ -19,48 +25,42 @@ const StripePayment = ({
   orderId: string;
   clientSecret: string;
 }) => {
-  const stripePromise = loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string,
-  );
-
   const { theme, systemTheme } = useTheme();
 
-  const options = {
-    clientSecret,
-    elementsOptions: {
-      appearence: {
-        theme:
-          theme === "dark"
-            ? "night"
-            : theme === "light"
-              ? "stripe"
-              : systemTheme === "light"
-                ? "stripe"
-                : "night",
-      },
-    },
-  };
-
-  // Stripe Form Component
-  const StripeForm = () => {
-    const stripe = useStripe();
-    const elements = useElements();
-
+  const CheckoutForm = () => {
+    const checkoutState = useCheckout();
     const [isLoading, setIsLoading] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
-    const [email, setEmail] = useState("");
+    const [errorMessage, setErrorMessage] = useState<string>();
+
+    if (checkoutState.type === "loading") {
+      return <div>Loading...</div>;
+    } else if (checkoutState.type === "error") {
+      return <div className="text-destructive">Error: {checkoutState.error.message}</div>;
+    }
+
+    const { checkout } = checkoutState;
+
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      setIsLoading(true);
+
+      const result = await checkout.confirm();
+
+      if (result.type === "error") {
+        setErrorMessage(result.error.message);
+      }
+
+      setIsLoading(false);
+    };
 
     return (
-      <form className="space-y-4">
-        <div className="texxt-xl">Stripe Checkout</div>
+      <form onSubmit={handleSubmit}>
+        <div className="text-xl">Stripe Checkout</div>
         {errorMessage && <div className="text-destructive">{errorMessage}</div>}
-
         <PaymentElement />
-
         <Button
-          className="w-full"
-          size="lg"
-          disabled={stripe == null || elements == null || isLoading}
+          className="w-full mt-4"
+          disabled={!checkout.canConfirm || isLoading}
         >
           {isLoading
             ? "Purchasing..."
@@ -71,9 +71,26 @@ const StripePayment = ({
   };
 
   return (
-    <Elements options={options} stripe={stripePromise}>
-      <StripeForm />
-    </Elements>
+    <CheckoutProvider
+      stripe={stripePromise}
+      options={{
+        clientSecret,
+        elementsOptions: {
+          appearance: {
+            theme:
+              theme === "dark"
+                ? "night"
+                : theme === "system"
+                  ? systemTheme === "dark"
+                    ? "night"
+                    : "stripe"
+                  : "stripe",
+          },
+        },
+      }}
+    >
+      <CheckoutForm />
+    </CheckoutProvider>
   );
 };
 

@@ -26,12 +26,25 @@ const OrderDetailsPage = async (props: { params: Promise<{ id: string }> }) => {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
     // Create payment intent
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(Number(order.totalPrice) * 100), // Convert to cents
-      currency: "usd",
-      metadata: { order_id: order.id },
+    const session = await stripe.checkout.sessions.create({
+      line_items: [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: `Order #${order.id}`,
+            },
+            unit_amount: Math.round(Number(order.totalPrice) * 100), // Convert to cents
+          },
+          quantity: 1,
+        },
+      ],
+      mode: "payment",
+      ui_mode: "elements",
+      return_url: `${process.env.NEXTAUTH_URL}/order/${order.id}/success`,
     });
-    client_secret = paymentIntent.client_secret;
+
+    client_secret = session.client_secret;
   }
 
   return (

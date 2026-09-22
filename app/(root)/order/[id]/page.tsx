@@ -21,7 +21,7 @@ const OrderDetailsPage = async (props: { params: Promise<{ id: string }> }) => {
   let client_secret = null;
 
   // Check if is not paid and using stripe
-  if (order.paymentMethod === "stripe" && !order.isPaid) {
+  if (order.paymentMethod === "Stripe" && !order.isPaid) {
     // Init stripe instance
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 

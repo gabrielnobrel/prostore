@@ -1,3 +1,15 @@
+import { loadStripe } from "@stripe/stripe-js";
+import {
+  Elements,
+  PaymentElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
+import { useTheme } from "next-themes";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { formatCurrency } from "@/lib/utils";
+
 const StripePayment = ({
   priceInCents,
   orderId,
@@ -7,7 +19,62 @@ const StripePayment = ({
   orderId: string;
   clientSecret: string;
 }) => {
-  return <>Stripe Form</>;
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string,
+  );
+
+  const { theme, systemTheme } = useTheme();
+
+  const options = {
+    clientSecret,
+    elementsOptions: {
+      appearence: {
+        theme:
+          theme === "dark"
+            ? "night"
+            : theme === "light"
+              ? "stripe"
+              : systemTheme === "light"
+                ? "stripe"
+                : "night",
+      },
+    },
+  };
+
+  // Stripe Form Component
+  const StripeForm = () => {
+    const stripe = useStripe();
+    const elements = useElements();
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [email, setEmail] = useState("");
+
+    return (
+      <form className="space-y-4">
+        <div className="texxt-xl">Stripe Checkout</div>
+        {errorMessage && <div className="text-destructive">{errorMessage}</div>}
+
+        <PaymentElement />
+
+        <Button
+          className="w-full"
+          size="lg"
+          disabled={stripe == null || elements == null || isLoading}
+        >
+          {isLoading
+            ? "Purchasing..."
+            : `Purchase ${formatCurrency(priceInCents / 100)}`}
+        </Button>
+      </form>
+    );
+  };
+
+  return (
+    <Elements options={options} stripe={stripePromise}>
+      <StripeForm />
+    </Elements>
+  );
 };
 
 export default StripePayment;

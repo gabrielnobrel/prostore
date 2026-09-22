@@ -1,11 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
-import {
-  addItemToCart,
-  removeItemFromCart,
-  proceedToCheckout,
-} from "@/lib/actions/cart.actions";
+import { addItemToCart, removeItemFromCart } from "@/lib/actions/cart.actions";
 import { ArrowRight, Loader, Minus, Plus } from "lucide-react";
 import { Cart } from "@/types";
 import Link from "next/link";

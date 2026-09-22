@@ -256,11 +256,14 @@ const OrderDetailsTable = ({
 
               {/* Stripe Payment */}
               {!isPaid && paymentMethod === "Stripe" && stripeClientSecret && (
-                <StripePayment
-                  priceInCents={Number(order.totalPrice) * 100}
-                  orderId={order.id}
-                  clientSecret={stripeClientSecret}
-                />
+                <>
+                  <div>Stripe</div>
+                  <StripePayment
+                    priceInCents={Number(order.totalPrice) * 100}
+                    orderId={order.id}
+                    clientSecret={stripeClientSecret}
+                  />
+                </>
               )}
 
               {/* Cash On Delivery */}

@@ -41,7 +41,8 @@ const OrderDetailsPage = async (props: { params: Promise<{ id: string }> }) => {
       ],
       mode: "payment",
       ui_mode: "elements",
-      return_url: `${process.env.NEXTAUTH_URL}/order/${order.id}/success`,
+      metadata: { orderId: order.id },
+      return_url: `${process.env.NEXTAUTH_URL}/order/${order.id}/success?session_id={CHECKOUT_SESSION_ID}`,
     });
 
     client_secret = session.client_secret;

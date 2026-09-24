@@ -2,18 +2,19 @@
 
 import { loadStripe } from "@stripe/stripe-js";
 import {
-  CheckoutProvider,
+  CheckoutElementsProvider,
+  ContactDetailsElement,
   PaymentElement,
   useCheckout,
 } from "@stripe/react-stripe-js/checkout";
 
 import { useTheme } from "next-themes";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/utils";
 
 const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string,
 );
 
 const StripePayment = ({
@@ -30,18 +31,26 @@ const StripePayment = ({
   const CheckoutForm = () => {
     const checkoutState = useCheckout();
     const [isLoading, setIsLoading] = useState(false);
+    const [email, setEmail] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<string>();
 
     if (checkoutState.type === "loading") {
       return <div>Loading...</div>;
     } else if (checkoutState.type === "error") {
-      return <div className="text-destructive">Error: {checkoutState.error.message}</div>;
+      return (
+        <div className="text-destructive">
+          Error: {checkoutState.error.message}
+        </div>
+      );
     }
 
     const { checkout } = checkoutState;
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
       e.preventDefault();
+
+      if (email == null) return;
+
       setIsLoading(true);
 
       const result = await checkout.confirm();
@@ -55,9 +64,10 @@ const StripePayment = ({
 
     return (
       <form onSubmit={handleSubmit}>
-        <div className="text-xl">Stripe Checkout</div>
+        .<div className="text-xl">Stripe Checkout</div>
         {errorMessage && <div className="text-destructive">{errorMessage}</div>}
         <PaymentElement />
+        <ContactDetailsElement onChange={(e) => setEmail(e.value.email)} />
         <Button
           className="w-full mt-4"
           disabled={!checkout.canConfirm || isLoading}
@@ -71,7 +81,7 @@ const StripePayment = ({
   };
 
   return (
-    <CheckoutProvider
+    <CheckoutElementsProvider
       stripe={stripePromise}
       options={{
         clientSecret,
@@ -90,7 +100,7 @@ const StripePayment = ({
       }}
     >
       <CheckoutForm />
-    </CheckoutProvider>
+    </CheckoutElementsProvider>
   );
 };
 

@@ -8,7 +8,7 @@ import { auth } from "@/auth";
 import { prisma } from "@/db/prisma";
 import { cartItemSchema, insertCartSchema } from "../validators";
 import { revalidatePath } from "next/cache";
-import { Prisma } from "../generated/prisma";
+import { Prisma } from "@/lib/generated/prisma/client";
 import { date } from "zod";
 import { redirect } from "next/navigation";
 

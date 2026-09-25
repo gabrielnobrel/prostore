@@ -4,7 +4,7 @@ import sampleData from "./sample-data";
 
 const adapter = new PrismaNeon({ connectionString: process.env.DATABASE_URL });
 
-// Alimentar o banco de dados
+// Alimentar o banco de dados de deeb
 async function main() {
   const prisma = new PrismaClient({ adapter });
   await prisma.product.deleteMany();

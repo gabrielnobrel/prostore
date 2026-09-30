@@ -23,7 +23,6 @@ import {
   createPayPalOrder,
   approvePayPalOrder,
   updateOrderToPaidCOD,
-  deleteOrder,
   deliverOrder,
 } from "@/lib/actions/order.actions";
 import { toast } from "sonner";
@@ -37,7 +36,7 @@ const OrderDetailsTable = ({
   isAdmin,
   stripeClientSecret,
 }: {
-  order: Order;
+  order: Omit<Order, "paymentResult">;
   paypalClientId: string;
   isAdmin: boolean;
   stripeClientSecret: string | null;

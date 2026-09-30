@@ -19,7 +19,6 @@ const stripePromise = loadStripe(
 
 const StripePayment = ({
   priceInCents,
-  orderId,
   clientSecret,
 }: {
   priceInCents: number;

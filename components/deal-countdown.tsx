@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 // Static target date (replace with desired date)
-const TARGET_DATE = new Date("2026-12-20T00:00:00");
+const TARGET_DATE = new Date("2026-04-20T00:00:00");
 
 // Function to calculate the time remainig
 const calculateTimeRemaining = (targetDate: Date) => {
@@ -50,6 +50,35 @@ const DealCountdown = () => {
       <section className="grid grid-cols-1 md:grid-cols-2 my-20">
         <div className="flex flex-col gap-2 justify-center">
           <h3 className="text-3xl font-bold">Loading Countdown...</h3>
+        </div>
+      </section>
+    );
+  }
+
+  if (
+    time.days === 0 &&
+    time.hours === 0 &&
+    time.minutes === 0 &&
+    time.seconds === 0
+  ) {
+    return (
+      <section className="grid grid-cols-1 md:grid-cols-2 my-20">
+        <div className="flex flex-col gap-2 justify-center">
+          <h3 className="text-3xl font-bold">Deal Has Ended</h3>
+          <p>This deal is no longer avaible. Check out latest promotions!</p>
+          <div className="text-center">
+            <Button asChild>
+              <Link href={"/search"}>View Product</Link>
+            </Button>
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <Image
+            src="/images/promo.jpg"
+            alt="Promotional Image"
+            width={300}
+            height={200}
+          />
         </div>
       </section>
     );

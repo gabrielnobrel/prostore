@@ -12,10 +12,12 @@ export const config = {
     signIn: "/sign-in",
     error: "/sign-in",
   },
+
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
+
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
@@ -55,6 +57,7 @@ export const config = {
       },
     }),
   ],
+
   callbacks: {
     async session({ session, user, trigger, token }: any) {
       // Set the user ID from the token
@@ -72,6 +75,7 @@ export const config = {
 
     async jwt({ token, user, trigger, session }: any) {
       if (user) {
+        token.id = user.id;
         token.role = user.role;
 
         // if user has no name then use the email
@@ -85,6 +89,30 @@ export const config = {
               name: token.name,
             },
           });
+        }
+
+        if (trigger === "signIn" || trigger === "signUp") {
+          const cookiesObject = await cookies();
+          const sessionCartId = cookiesObject.get("sessionCartId")?.value;
+
+          if (sessionCartId) {
+            const sessionCart = await prisma.cart.findFirst({
+              where: { sessionCartId },
+            });
+
+            if (sessionCart) {
+              // Delete current user cart
+              await prisma.cart.deleteMany({
+                where: { userId: user.id },
+              });
+
+              // Assign new cart
+              await prisma.cart.update({
+                where: { id: sessionCart.id },
+                data: { userId: user.id },
+              });
+            }
+          }
         }
       }
 

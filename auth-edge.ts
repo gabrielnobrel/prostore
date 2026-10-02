@@ -31,6 +31,7 @@ export const config = {
       session.user.name = token.name;
       return session;
     },
+
     async jwt({ token, user }: any) {
       if (user) {
         token.role = user.role;
@@ -38,6 +39,7 @@ export const config = {
       }
       return token;
     },
+
     authorized({ request, auth }) {
       const protectedPaths = [
         /\/shipping-address/,
@@ -55,7 +57,7 @@ export const config = {
       if (!auth && protectedPaths.some((p) => p.test(pathname))) {
         return false;
       }
-      // Sua lógica de cookie pode ficar aqui, mas sem Prisma!
+      // Criação de cookie sessionCartId!
       if (!request.cookies.get("sessionCartId")) {
         const sessionCartId = crypto.randomUUID();
         const response = NextResponse.next();
